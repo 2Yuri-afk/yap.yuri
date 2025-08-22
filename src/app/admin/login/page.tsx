@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default async function AdminLoginPage() {
   const supabase = await createSupabaseServerClient();
@@ -77,6 +78,16 @@ export default async function AdminLoginPage() {
             >
               Sign In
             </Button>
+
+            {/* Forgot Password Link */}
+            <div className="text-center">
+              <Link
+                href="/admin/reset-password"
+                className="font-mono text-xs text-[var(--text-muted)] hover:text-[var(--accent-primary)]"
+              >
+                Forgot your password?
+              </Link>
+            </div>
           </div>
         </form>
 
