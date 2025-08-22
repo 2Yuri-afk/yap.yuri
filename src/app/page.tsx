@@ -3,6 +3,7 @@ import AboutCard from '@/components/home/AboutCard';
 import FeedPost from '@/components/home/FeedPost';
 import ScrollToPost from '@/components/home/ScrollToPost';
 import AmongUsCard from '@/components/home/AmongUsCard';
+import KonamiEasterEgg from '@/components/home/KonamiEasterEgg';
 export default async function Home() {
   const supabase = await createSupabaseServerClient();
 
@@ -133,79 +134,8 @@ export default async function Home() {
         </div>
       </header>
 
-      {/* Easter Egg Script */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function() {
-              // Secret pattern: B, A, B, A, SELECT, START (inspired by Konami code)
-              const secretPattern = ['B', 'A', 'B', 'A', 'SELECT', 'START'];
-              let currentPattern = [];
-              let lastPressTime = 0;
-              const timeout = 6000; // Reset pattern after 6 seconds of inactivity
-              
-              // Visual feedback
-              function flashButton(button) {
-                button.classList.add('pressed');
-                setTimeout(() => button.classList.remove('pressed'), 200);
-              }
-              
-              // Success animation
-              function triggerSuccess() {
-                const dock = document.getElementById('controllerDock');
-                dock.classList.add('success-glow');
-                
-                // Play a success sound if you want
-                console.log('🎮 SECRET UNLOCKED! Redirecting to admin...');
-                
-                setTimeout(() => {
-                  window.location.href = '/admin/login';
-                }, 1000);
-              }
-              
-              // Initialize after DOM loads
-              document.addEventListener('DOMContentLoaded', function() {
-                const buttons = document.querySelectorAll('.nes-button');
-                
-                buttons.forEach(button => {
-                  button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const buttonValue = this.dataset.button;
-                    const currentTime = Date.now();
-                    
-                    // Flash visual feedback
-                    flashButton(this);
-                    
-                    // Reset pattern if too much time passed
-                    if (currentTime - lastPressTime > timeout) {
-                      currentPattern = [];
-                    }
-                    
-                    lastPressTime = currentTime;
-                    currentPattern.push(buttonValue);
-                    
-                    // Check if pattern matches
-                    if (currentPattern.length === secretPattern.length) {
-                      if (JSON.stringify(currentPattern) === JSON.stringify(secretPattern)) {
-                        triggerSuccess();
-                      }
-                      // Reset after checking
-                      currentPattern = [];
-                    } else if (currentPattern.length > secretPattern.length) {
-                      // Too many inputs, reset
-                      currentPattern = [buttonValue];
-                    }
-                    
-                    // Debug log (remove in production)
-                    console.log('Pattern progress:', currentPattern.join(' → '));
-                  });
-                });
-              });
-            })();
-          `,
-        }}
-      />
+      {/* Easter Egg Component */}
+      <KonamiEasterEgg />
 
       {/* Spacer for fixed header */}
       <div className="h-20" />
