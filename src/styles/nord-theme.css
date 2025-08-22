@@ -1,0 +1,68 @@
+/* Nord Color Palette - nordtheme.com */
+:root {
+  /* Polar Night - Dark backgrounds */
+  --nord0: #2e3440; /* Darkest */
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a; /* Lightest dark */
+
+  /* Snow Storm - Light foregrounds */
+  --nord4: #d8dee9; /* Darkest white */
+  --nord5: #e5e9f0;
+  --nord6: #eceff4; /* Pure white */
+
+  /* Frost - Primary colors */
+  --nord7: #8fbcbb; /* Frozen polar water */
+  --nord8: #88c0d0; /* Pure arctic water */
+  --nord9: #81a1c1; /* Water meets ice */
+  --nord10: #5e81ac; /* Deep arctic ocean */
+
+  /* Aurora - Accent colors */
+  --nord11: #bf616a; /* Red - Error */
+  --nord12: #d08770; /* Orange - Warning */
+  --nord13: #ebcb8b; /* Yellow - Attention */
+  --nord14: #a3be8c; /* Green - Success */
+  --nord15: #b48ead; /* Purple - Special */
+}
+
+/* 8-bit Design System with Nord Colors */
+[data-theme='nord-8bit'] {
+  /* Background layers */
+  --bg-primary: var(--nord0);
+  --bg-secondary: var(--nord1);
+  --bg-tertiary: var(--nord2);
+  --bg-elevated: var(--nord3);
+
+  /* Text colors */
+  --text-primary: var(--nord6);
+  --text-secondary: var(--nord5);
+  --text-muted: var(--nord4);
+  --text-disabled: var(--nord3);
+
+  /* Interactive colors */
+  --accent-primary: var(--nord8);
+  --accent-secondary: var(--nord9);
+  --accent-hover: var(--nord7);
+  --accent-focus: var(--nord10);
+
+  /* Semantic colors */
+  --success: var(--nord14);
+  --warning: var(--nord12);
+  --error: var(--nord11);
+  --info: var(--nord10);
+
+  /* Special elements */
+  --link: var(--nord8);
+  --link-hover: var(--nord7);
+  --code: var(--nord15);
+  --selection: var(--nord3);
+
+  /* Borders and shadows */
+  --border-color: var(--nord3);
+  --border-light: var(--nord2);
+  --shadow-color: rgba(46, 52, 64, 0.4);
+
+  /* Pixel art specific */
+  --pixel-size: 2px;
+  --pixel-border: 4px;
+}

@@ -1,0 +1,652 @@
+/* Enhanced 8-bit Design System */
+
+/* Pixelated borders with depth */
+.pixel-border {
+  position: relative;
+  background: var(--bg-secondary);
+  box-shadow:
+    inset -2px -2px 0 0 var(--nord0),
+    inset 2px 2px 0 0 var(--nord3);
+}
+
+.pixel-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--border-color);
+  z-index: -1;
+}
+
+/* Basic pixel card */
+.pixel-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  position: relative;
+}
+
+/* Elevated card with 3D effect */
+.card-elevated,
+.pixel-card-elevated,
+.post-card-elevated {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  position: relative;
+  transition: transform 0.15s ease;
+  /* Initial shadow */
+  box-shadow: 4px 4px 0 var(--nord0);
+}
+
+/* Regular cards keep the hover transform */
+.card-elevated:hover,
+.pixel-card-elevated:hover {
+  /* Move the card slightly up and left */
+  transform: translate(-1px, -1px);
+  /* Increase shadow offset to maintain 3D effect */
+  box-shadow: 5px 5px 0 var(--nord0);
+}
+
+/* Post cards only change background, no transform */
+.post-card-elevated:hover {
+  /* Only background change, no transform */
+  background: var(--bg-tertiary) !important;
+  box-shadow: 4px 4px 0 var(--nord0);
+}
+
+/* Active state for when clicking */
+.card-elevated:active,
+.pixel-card-elevated:active {
+  transform: translate(1px, 1px);
+  box-shadow: 3px 3px 0 var(--nord0);
+}
+
+/* Pixel buttons with multiple states */
+.btn-pixel {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 12px 24px;
+  background: var(--accent-primary);
+  color: var(--nord0);
+  border: none;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.1s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-pixel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+}
+
+.btn-pixel::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--nord0);
+  z-index: -1;
+}
+
+.btn-pixel:hover {
+  transform: translate(-1px, -1px);
+  background: var(--accent-hover);
+}
+
+.btn-pixel:active {
+  transform: translate(1px, 1px);
+}
+
+.btn-pixel.btn-secondary {
+  background: var(--accent-secondary);
+}
+
+.btn-pixel.btn-success {
+  background: var(--success);
+}
+
+.btn-pixel.btn-error {
+  background: var(--error);
+}
+
+/* Retro input fields */
+.input-pixel {
+  background: var(--nord0);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.input-pixel:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  background: var(--bg-primary);
+  box-shadow:
+    0 0 0 2px var(--accent-primary),
+    inset 0 0 0 1px var(--nord0);
+}
+
+/* Pixel art icons */
+.pixel-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Animated pixel loader */
+.pixel-loader {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 2px;
+}
+
+.pixel-loader span {
+  background: var(--accent-primary);
+  animation: pixel-pulse 1.4s infinite;
+}
+
+.pixel-loader span:nth-child(1) {
+  animation-delay: 0s;
+}
+.pixel-loader span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.pixel-loader span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.pixel-loader span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.pixel-loader span:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.pixel-loader span:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.pixel-loader span:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.pixel-loader span:nth-child(8) {
+  animation-delay: 0.7s;
+}
+
+@keyframes pixel-pulse {
+  0%,
+  70%,
+  100% {
+    transform: scale(1);
+    background: var(--accent-primary);
+  }
+  35% {
+    transform: scale(0);
+    background: var(--accent-hover);
+  }
+}
+
+/* Glitch text effect */
+.glitch {
+  position: relative;
+  color: var(--text-primary);
+  font-family: 'Press Start 2P', monospace;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  animation: glitch-1 0.5s infinite;
+  color: var(--nord14);
+  z-index: -1;
+}
+
+.glitch::after {
+  animation: glitch-2 0.5s infinite;
+  color: var(--nord11);
+  z-index: -2;
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip: rect(44px, 450px, 56px, 0);
+    transform: translate(2px, 0);
+  }
+  20% {
+    clip: rect(24px, 450px, 90px, 0);
+    transform: translate(-2px, 0);
+  }
+  40% {
+    clip: rect(0, 450px, 30px, 0);
+    transform: translate(1px, 0);
+  }
+  60% {
+    clip: rect(80px, 450px, 100px, 0);
+    transform: translate(-1px, 0);
+  }
+  80% {
+    clip: rect(50px, 450px, 70px, 0);
+    transform: translate(2px, 0);
+  }
+  100% {
+    clip: rect(20px, 450px, 40px, 0);
+    transform: translate(1px, 0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip: rect(65px, 450px, 100px, 0);
+    transform: translate(-1px, 0);
+  }
+  20% {
+    clip: rect(30px, 450px, 60px, 0);
+    transform: translate(2px, 0);
+  }
+  40% {
+    clip: rect(10px, 450px, 40px, 0);
+    transform: translate(-2px, 0);
+  }
+  60% {
+    clip: rect(70px, 450px, 90px, 0);
+    transform: translate(1px, 0);
+  }
+  80% {
+    clip: rect(40px, 450px, 80px, 0);
+    transform: translate(-1px, 0);
+  }
+  100% {
+    clip: rect(25px, 450px, 50px, 0);
+    transform: translate(2px, 0);
+  }
+}
+
+/* Terminal-style container */
+.terminal {
+  background: var(--nord0);
+  border: 2px solid var(--border-color);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.terminal-header {
+  background: var(--nord2);
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--nord11);
+  display: inline-block;
+}
+
+.terminal-dot.yellow {
+  background: var(--nord13);
+}
+.terminal-dot.green {
+  background: var(--nord14);
+}
+
+.terminal-body {
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  color: var(--nord14);
+}
+
+/* Pixel progress bar */
+.progress-pixel {
+  height: 16px;
+  background: var(--nord0);
+  border: 2px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-pixel-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary) 0%,
+    var(--accent-primary) 25%,
+    var(--accent-hover) 25%,
+    var(--accent-hover) 50%,
+    var(--accent-primary) 50%,
+    var(--accent-primary) 75%,
+    var(--accent-hover) 75%
+  );
+  background-size: 32px 100%;
+  animation: progress-move 1s linear infinite;
+  transition: width 0.3s;
+}
+
+@keyframes progress-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 32px 0;
+  }
+}
+
+/* Retro tooltip */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--nord0);
+  color: var(--text-primary);
+  padding: 4px 8px;
+  border: 2px solid var(--accent-primary);
+  font-size: 10px;
+  font-family: 'Press Start 2P', monospace;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  margin-bottom: 8px;
+}
+
+.tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--accent-primary);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.tooltip:hover::after,
+.tooltip:hover::before {
+  opacity: 1;
+}
+
+/* ==========================================
+   Cool Header Animations
+   ========================================== */
+
+.header-cool {
+  position: relative;
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 0%,
+    var(--nord1) 50%,
+    var(--bg-secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Animated gradient background */
+.header-bg {
+  background: linear-gradient(
+    45deg,
+    var(--nord7) 0%,
+    var(--nord8) 25%,
+    var(--nord9) 50%,
+    var(--nord10) 75%,
+    var(--nord7) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-move 15s ease infinite;
+  mix-blend-mode: overlay;
+}
+
+/* Pixel rain effect */
+.pixel-rain::before,
+.pixel-rain::after {
+  content: '▪ ▫ ▪ ▫ ▪ ▫ ▪ ▫ ▪ ▫ ▪ ▫ ▪ ▫ ▪ ▫';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  font-size: 10px;
+  color: var(--nord8);
+  opacity: 0.3;
+  animation: rain-fall 3s linear infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pixel-rain::after {
+  animation-delay: 1.5s;
+  left: 50px;
+  color: var(--nord9);
+}
+
+/* Enhanced header title */
+.header-title {
+  position: relative;
+  color: var(--text-primary);
+  text-shadow:
+    2px 2px 0 var(--nord10),
+    -1px -1px 0 var(--nord7);
+  animation: text-glow 2s ease-in-out infinite alternate;
+}
+
+.title-main {
+  position: relative;
+  z-index: 3;
+}
+
+.title-shadow {
+  color: var(--nord11);
+  animation: title-glitch-1 0.5s infinite;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+.title-shadow-2 {
+  color: var(--nord14);
+  animation: title-glitch-2 0.5s infinite;
+  animation-delay: 0.1s;
+  opacity: 0.8;
+  mix-blend-mode: multiply;
+  z-index: 2;
+}
+
+/* Floating animation for icons */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 3s ease-in-out infinite;
+}
+
+.header-cool .pixel-icon {
+  display: inline-block;
+  transition: transform 0.3s;
+  animation: icon-pulse 2s ease-in-out infinite;
+}
+
+.header-cool .pixel-icon:hover {
+  transform: rotate(360deg) scale(1.2);
+}
+
+.animation-delay-1 {
+  animation-delay: 1s;
+}
+
+.animation-delay-2 {
+  animation-delay: 2s;
+}
+
+/* Header-specific keyframe animations */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient-move {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes rain-fall {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+}
+
+@keyframes text-glow {
+  0% {
+    text-shadow:
+      2px 2px 0 var(--nord10),
+      -1px -1px 0 var(--nord7),
+      0 0 10px transparent;
+  }
+  100% {
+    text-shadow:
+      2px 2px 0 var(--nord10),
+      -1px -1px 0 var(--nord7),
+      0 0 20px var(--nord8),
+      0 0 30px var(--nord7);
+  }
+}
+
+@keyframes title-glitch-1 {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-1px, 1px);
+  }
+  40% {
+    transform: translate(-1px, -1px);
+  }
+  60% {
+    transform: translate(1px, 1px);
+  }
+  80% {
+    transform: translate(1px, -1px);
+  }
+}
+
+@keyframes title-glitch-2 {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(1px, -1px);
+  }
+  40% {
+    transform: translate(1px, 1px);
+  }
+  60% {
+    transform: translate(-1px, -1px);
+  }
+  80% {
+    transform: translate(-1px, 1px);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) rotate(5deg);
+  }
+  75% {
+    transform: translateY(3px) rotate(-5deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(3px) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(5deg);
+  }
+}
+
+@keyframes icon-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}

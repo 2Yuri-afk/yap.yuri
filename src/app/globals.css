@@ -1,0 +1,295 @@
+@import 'tailwindcss';
+@import '../styles/nord-theme.css';
+@import '../styles/8bit-enhanced.css';
+@import '../styles/minecraft-ui.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* 8-bit theme with Nord colors */
+:root {
+  /* Nord Polar Night - Dark backgrounds */
+  --bg-primary: #2e3440;
+  --bg-secondary: #3b4252;
+  --bg-tertiary: #434c5e;
+  --bg-elevated: #4c566a;
+
+  /* Nord Snow Storm - Light foregrounds */
+  --text-primary: #eceff4;
+  --text-secondary: #e5e9f0;
+  --text-muted: #d8dee9;
+
+  /* Nord Frost - Primary colors */
+  --accent-primary: #88c0d0; /* Pure arctic water */
+  --accent-secondary: #81a1c1; /* Water meets ice */
+  --accent-hover: #8fbcbb; /* Frozen polar water */
+  --accent-focus: #5e81ac; /* Deep arctic ocean */
+
+  /* Nord Aurora - Semantic colors */
+  --accent-error: #bf616a; /* Red */
+  --accent-warning: #d08770; /* Orange */
+  --accent-info: #5e81ac; /* Blue */
+  --accent-success: #a3be8c; /* Green */
+  --accent-special: #b48ead; /* Purple */
+
+  /* Interactive States */
+  --hover-bg: rgba(136, 192, 208, 0.1);
+  --focus-ring: #88c0d0;
+  --selection-bg: #81a1c1;
+  --border-color: #4c566a;
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Pixel font for headings */
+@font-face {
+  font-family: 'Press Start 2P';
+  src:
+    local('Press Start 2P'),
+    url('https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivA.ttf')
+      format('truetype');
+  font-display: swap;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Global defaults */
+body {
+  font-family:
+    var(--font-geist-sans),
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    Noto Sans,
+    sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Press Start 2P', var(--font-geist-mono), monospace;
+  letter-spacing: 0.02em;
+}
+
+/* Pixelated images for authentic 8-bit feel */
+img,
+canvas {
+  image-rendering: pixelated;
+}
+
+/* Utility classes */
+.btn-8bit {
+  @apply border-2 bg-[var(--bg-secondary)] px-4 py-2 font-mono font-bold tracking-wider text-[var(--text-primary)] uppercase focus:ring-2 focus:outline-none;
+  border-color: var(--accent-primary);
+}
+.btn-8bit:hover {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+}
+.btn-8bit:focus {
+  --tw-ring-color: var(--focus-ring);
+}
+.btn-8bit:active {
+  transform: translate(1px, 1px);
+}
+
+.card-8bit {
+  @apply border-2 shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)];
+  border-color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+}
+
+.input-8bit {
+  @apply border-2 bg-[var(--bg-primary)] text-[var(--text-primary)];
+  border-color: var(--text-secondary);
+}
+.input-8bit:focus {
+  @apply ring-2;
+  --tw-ring-color: var(--focus-ring);
+  border-color: var(--accent-primary);
+}
+
+/* Selection */
+::selection {
+  background: var(--selection-bg);
+  color: var(--bg-primary);
+}
+
+/* Highlight animation for posts when scrolled to via anchor */
+@keyframes highlightPost {
+  0% {
+    box-shadow: 0 0 0 0 var(--accent-primary);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px var(--accent-primary);
+  }
+  100% {
+    box-shadow: 0 0 0 0 var(--accent-primary);
+  }
+}
+
+.highlight-post {
+  animation: highlightPost 1.5s ease-out;
+  border-color: var(--accent-primary) !important;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  /* Firefox */
+  scrollbar-width: none;
+  /* Safari and Chrome */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* IE and Edge */
+  -ms-overflow-style: none;
+}
+
+/* Thin scrollbar for sidebars */
+.scrollbar-thin {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-secondary) transparent;
+
+  /* Webkit browsers */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--text-secondary);
+    border-radius: 3px;
+
+    &:hover {
+      background-color: var(--text-muted);
+    }
+  }
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
