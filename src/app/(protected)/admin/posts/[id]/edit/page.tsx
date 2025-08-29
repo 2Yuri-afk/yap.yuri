@@ -10,7 +10,19 @@ import { uploadImage } from '@/lib/upload';
 // Dynamically import the editor to avoid SSR issues
 const RichTextEditor = dynamic(
   () => import('@/components/editor/RichTextEditor'),
-  { ssr: false }
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="flex h-[400px] items-center justify-center border-2 border-dashed border-[var(--border-color)] bg-[var(--bg-tertiary)]">
+        <div className="text-center">
+          <div className="mb-2 font-mono text-sm text-[var(--text-muted)]">
+            Loading editor...
+          </div>
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--accent-primary)] border-r-transparent"></div>
+        </div>
+      </div>
+    )
+  }
 );
 
 export default function EditPostClientPage({
@@ -77,14 +89,14 @@ export default function EditPostClientPage({
         (data.media_attachments as Array<{ url: string }>) || [];
       setMediaUrls(mediaAttachments.map(m => m.url).join('\n'));
 
-      // Set date fields (convert to datetime-local format)
+      // Set date fields (convert to date format YYYY-MM-DD)
       if (data.published_at) {
         const pubDate = new Date(data.published_at as string);
-        setPublishedAt(pubDate.toISOString().slice(0, 16));
+        setPublishedAt(pubDate.toISOString().slice(0, 10));
       }
       if (data.created_at) {
         const createDate = new Date(data.created_at as string);
-        setCreatedAt(createDate.toISOString().slice(0, 16));
+        setCreatedAt(createDate.toISOString().slice(0, 10));
       }
 
       setLoading(false);
@@ -130,12 +142,12 @@ export default function EditPostClientPage({
       .filter(Boolean);
     const media_attachments = media_urls.map(url => ({ url, type: 'image' }));
 
-    // Convert datetime-local values to ISO strings
+    // Convert date values to ISO strings at UTC start-of-day
     const publishedISO = publishedAt
-      ? new Date(publishedAt).toISOString()
+      ? new Date(publishedAt + 'T00:00:00Z').toISOString()
       : null;
     const createdISO = createdAt
-      ? new Date(createdAt).toISOString()
+      ? new Date(createdAt + 'T00:00:00Z').toISOString()
       : new Date().toISOString();
 
     const { error } = await supabase
@@ -249,11 +261,11 @@ export default function EditPostClientPage({
 
                   // Auto-manage published_at based on status
                   if (newStatus === 'scheduled' && !publishedAt) {
-                    // Pre-fill with current time if switching to scheduled
-                    setPublishedAt(new Date().toISOString().slice(0, 16));
+                    // Pre-fill with current date if switching to scheduled
+                    setPublishedAt(new Date().toISOString().slice(0, 10));
                   } else if (newStatus === 'published' && !publishedAt) {
-                    // Set to now if publishing immediately
-                    setPublishedAt(new Date().toISOString().slice(0, 16));
+                    // Set to today if publishing immediately
+                    setPublishedAt(new Date().toISOString().slice(0, 10));
                   }
                 }}
               >
@@ -296,7 +308,7 @@ export default function EditPostClientPage({
           <div>
             <label className="font-mono text-sm">Post Date</label>
             <input
-              type="datetime-local"
+              type="date"
               className="input-8bit w-full px-3 py-2"
               value={publishedAt || createdAt}
               onChange={e => {

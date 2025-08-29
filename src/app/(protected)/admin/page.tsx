@@ -4,35 +4,22 @@ import { createSupabaseServerClient } from '@/lib/supabase/server';
 export default async function AdminHome() {
   const supabase = await createSupabaseServerClient();
 
-  // Fetch statistics
-  const [postsResult, draftsResult, projectsResult] = await Promise.all([
-    supabase
-      .from('posts')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'published'),
-    supabase
-      .from('posts')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'draft'),
-    supabase
-      .from('posts')
-      .select('id', { count: 'exact', head: true })
-      .eq('post_type', 'project'),
-  ]);
-
-  // Fetch recent posts
-  const { data: recentPosts } = await supabase
+  // Fetch all posts with minimal data for statistics and recent posts
+  const { data: allPosts } = await supabase
     .from('posts')
     .select('id, title, status, post_type, created_at')
-    .order('created_at', { ascending: false })
-    .limit(5);
+    .order('created_at', { ascending: false });
 
+  // Calculate statistics from the single query
   const stats = {
-    published: postsResult.count || 0,
-    drafts: draftsResult.count || 0,
-    projects: projectsResult.count || 0,
-    total: (postsResult.count || 0) + (draftsResult.count || 0),
+    published: allPosts?.filter(p => p.status === 'published').length || 0,
+    drafts: allPosts?.filter(p => p.status === 'draft').length || 0,
+    projects: allPosts?.filter(p => p.post_type === 'project').length || 0,
+    total: allPosts?.length || 0,
   };
+
+  // Get recent posts from the same data
+  const recentPosts = allPosts?.slice(0, 5) || [];
 
   return (
     <div className="grid gap-6">
@@ -273,9 +260,8 @@ export default async function AdminHome() {
                 {recentPosts.map(post => (
                   <Link
                     key={post.id}
-                    href={`/admin/posts/${post.id}`}
-                    className="block border-l-4 border-transparent bg-[var(--bg-primary)] p-3 transition-all hover:border-[var(--accent-primary)] hover:bg-[var(--bg-tertiary)]"
-                  >
+                    href={`/admin/posts/${post.id}/edit`}
+                    className="block border-l-4 border-transparent bg-[var(--bg-primary)] p-3 transition-all hover:border-[var(--accent-primary)] hover:bg-[var(--bg-tertiary)]">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="font-mono text-sm font-bold">

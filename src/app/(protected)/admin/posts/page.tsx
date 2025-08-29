@@ -96,11 +96,6 @@ export default async function AdminPostsPage() {
                   FEATURED
                 </span>
               </th>
-              <th className="p-4 text-left">
-                <span className="font-mono text-xs font-bold text-[var(--text-primary)] uppercase">
-                  UPDATED
-                </span>
-              </th>
               <th className="p-4 text-center">
                 <span className="font-mono text-xs font-bold text-[var(--text-primary)] uppercase">
                   ACTIONS
@@ -165,20 +160,6 @@ export default async function AdminPostsPage() {
                   )}
                 </td>
                 <td className="p-4">
-                  <span className="font-mono text-xs text-[var(--text-secondary)]">
-                    {new Date(p.updated_at as string).toLocaleDateString(
-                      'en-US',
-                      {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      }
-                    )}
-                  </span>
-                </td>
-                <td className="p-4">
                   <div className="flex justify-center gap-2">
                     <Link
                       href={`/admin/posts/${p.id}/edit`}
@@ -198,7 +179,7 @@ export default async function AdminPostsPage() {
             ))}
             {(!posts || posts.length === 0) && (
               <tr>
-                <td className="p-8 text-center" colSpan={6}>
+                <td className="p-8 text-center" colSpan={5}>
                   <div className="text-center">
                     <div
                       className="mb-4 text-4xl opacity-20"
